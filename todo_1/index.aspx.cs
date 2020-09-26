@@ -139,8 +139,8 @@ namespace todo_1
 
 
 
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
+            //GridView1.DataSource = dt;
+            //GridView1.DataBind();
         }
        
         public string GetDayStartOfWeek(string dayinput)

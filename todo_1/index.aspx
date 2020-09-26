@@ -4,13 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
 
     <title><%: Page.Title %> </title>
     <link href="Css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
     <link href="Css/style.css" rel="stylesheet" type="text/css">
     <link href="Css/font-awesome.css" rel="stylesheet" type="text/css">
-    <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-replace-svg="nest"></script>
 
 </head>
 <body >
@@ -18,24 +18,124 @@
     <asp:Label ID="label1" runat="server" ><%=title%></asp:Label>
 
     <div class="container-fluid bg-nen">
-    	<div class="text-center">
-            <form runat="server">
 
-           
-            <asp:GridView ID="GridView1" runat="server">
-            </asp:GridView>
-            </form>
-           
-                logo</div>
-        <form action="index.aspx" method="get">
-            <span>Date<input type="date"  name="daysearch" value="29-02-2020"  /></span>
-            <button>tim kiem</button>
-        </form>
+        <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+        <!--sidebar-->
+    	<nav id="sidebar" class="bg-light navbar-light">
+            <div id="dismiss" class="btn-danger">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h4>Công việc công khai</h4>
+            </div>
+
+            <ul class="list-unstyled components pre-scrollable">
+                <li>
+                    <div class="card-body bg-white public-act mb-1">
+                        <h4 class="card-title">Làm báo cáo</h4>
+                        <p class="card-text p-0">Some example text. Some example text.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </li>
+
+                <!--them csdl xong thi bo tu khuc nay-->
+                <li>
+                    <div class="card-body bg-white public-act mb-1">
+                        <h4 class="card-title">Làm báo cáo</h4>
+                        <p class="card-text p-0">Some example text. Some example text.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </li>
+                <li>
+                    <div class="card-body bg-white public-act mb-1">
+                        <h4 class="card-title">Làm báo cáo</h4>
+                        <p class="card-text p-0">Some example text. Some example text.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </li>
+                <li>
+                    <div class="card-body bg-white public-act mb-1">
+                        <h4 class="card-title">Làm báo cáo</h4>
+                        <p class="card-text p-0">Some example text. Some example text.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </li>
+                <li>
+                    <div class="card-body bg-white public-act mb-1">
+                        <h4 class="card-title">Làm báo cáo</h4>
+                        <p class="card-text p-0">Some example text. Some example text.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </li>
+                <!--den khu nay-->
+
+            </ul>
+        </nav>
+    <!--sidebar-->
+
+        <!--navbar header fixtop-->
+        <div class="navbar fixed-top bg-info navbar-dark navbar-expand-lg ">
+			<div class="container">
+			<button class="navbar-toggler" data-target="#menu" data-toggle="collapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="navbar-collapse collapse" id="menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-info p-0 public">
+                        <i class="fa fa-align-left"></i>
+                        <span>Công việc công khai</span>
+                </button>
+                <a href="#" class="navbar-brand ml-auto"> <img src="Images/Logo.png"> </a>
+				<ul class="navbar-nav ml-auto" >
+					<li class="nav-item active"><a href="#" class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a href="#" class="nav-link login" data-toggle="modal" data-target="#login"><i class="fa fa-user-circle icon-login"></i> Thông tin cá nhân</a></li>
+					
+				</ul>
+			</div>
+				</div>
+		</div>
+        <!--end navbar header top-->
         
         <h4>To do list</h4>
         <!--content-->
         <div class="container">
             <div class="row">
+                <div class="col-12">
+                    <form class="form-inline" style="width: 500px" action="index.aspx" method="get">
+                        <span><input class="form-control mr-1" type="date"  name="daysearch" value="29-02-2020" id="ngay"  /></span>
+                        <button class="btn btn-info">Tìm kiếm</button>
+                    </form>
+                </div>
+                
+                
                 <% string[] Weeks = new string[10];
                     Weeks[0] = "Monday";
                     Weeks[1] = "Tuesday";
@@ -47,7 +147,7 @@
                     for (int i = 0; i <6; i++)
                     {
                         DateTime dtime = new DateTime();%>
-                    <div class="col-4">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="day">
                     	
                             <h4 class="tittle">Thứ <%= i+2 %></h4>
@@ -60,19 +160,19 @@
                                         <div class="bg-white">
                                 <div class="activity">
                                 	<div class="form-inline">
-                                        <form action="index.aspx" method="get" class="form-sua form-inline">
+                                        <form action="index.aspx" method="get" class="form-sua form-inline w-auto">
                                         <input type="text" name="idupdate" value="<%= dt.Rows[j][0] %>" hidden />
-                                        <input name="textupdate" class="text-edit form-control mr-4" type="text" disabled value="<%= dt.Rows[j][1] %>">
+                                        <span class="ok"><input style="cursor: pointer" name="textupdate" class="text-edit form-control" type="text" disabled value="<%= dt.Rows[j][1] %>"></span>
                                         <button hidden><i class="fa fa-plus"></i></button>
                                             
-                                        <div class="bg-edit">
-                                            <span style="padding: 3px" class="edit btn-primary" ><i class="fa fa-edit"></i></span>
+                                        <div class="bg-edit ml-auto">
+                                            <span style="padding: 3.5px; cursor:pointer; padding-top: 3px" class="edit btn-primary" ><i class="fa fa-edit"></i></span>
                                         </div>
                                             </form>
-                                        <div class="bg-hover d-inline" id="<%= dt.Rows[j][0] %>">
+                                        <div class="bg-hover d-inline ml-auto" id="<%= dt.Rows[j][0] %>">
                                             <form action="index.aspx" method="get" >
                                                 <input  name="iddelete" value="<%= dt.Rows[j][0] %>" hidden/>
-                                        	    <button runat="server" class="edit btn-danger"><i class="fas fa-times"></i> </button>
+                                        	    <button runat="server" class="edit btn-danger"><i class="fa fa-close"></i> </button>
                                             </form>
                                           </div>
                                     </div>
@@ -117,13 +217,13 @@
                      
 
                             <form method="get" action="index.aspx"  >
-                            <div id="demo"  class="collapse text-add">
+                            <div id="demo"  class="text-add">
                                <input name="job" class="form-control" placeholder="Nhập công việc mới" ></input>
                                <input name="day" value="<%=Weeks[i] %>" hidden></input>
                                 <button hidden><i class="fa fa-plus"></i></button>
                                 
                             </div>
-                            <span data-toggle="collapse" data-target="#demo" class="btn add-activity">+ Add another card</span>
+                            <span  class="btn add-activity">+ Thêm công việc mới</span>
                     </form>
                                 </div>
                 </div>
@@ -139,10 +239,47 @@
     <script src="Scripts/jquery-3.5.1.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
     <script>
         $(document).ready(function () {
+
+
             $(".input-them").slideUp(0);
+            $(".text-add").slideUp(0);
+
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            var today = year + "-" + month + "-" + day;
+            $("#ngay").attr("value", today);
+
+            $(".ok").click(function () {
+                $("#myModal").modal();
+            });
+            
         });
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+
+        $('#dismiss, .overlay').click(function () {
+            $('#sidebar').removeClass('active');
+            $('.overlay').removeClass('active');
+        });
+
+        $('#sidebarCollapse').click(function () {
+            $('#sidebar').addClass('active');
+            $('.overlay').addClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
 
         $(".bg-edit").click(function () {
             a = $(this).siblings(".text-edit");
@@ -183,6 +320,10 @@
         }
         $(".btn-them").click(function () {
             b = $(this).siblings(".input-them");
+            b.slideToggle();
+        });
+        $(".add-activity").click(function () {
+            b = $(this).siblings(".text-add");
             b.slideToggle();
         });
         $(function () {

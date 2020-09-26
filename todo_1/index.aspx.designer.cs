@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace todo_1
-{
-
-
-    public partial class index
-    {
-
+namespace todo_1 {
+    
+    
+    public partial class index {
+        
         /// <summary>
         /// label1 control.
         /// </summary>
@@ -22,14 +20,5 @@ namespace todo_1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label label1;
-
-        /// <summary>
-        /// GridView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }
