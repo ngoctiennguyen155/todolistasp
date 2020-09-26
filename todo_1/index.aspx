@@ -282,9 +282,10 @@
 
 
         $(".bg-edit").click(function () {
-            a = $(this).siblings(".text-edit");
-            a.prop("disabled", false);
-            a.focus();
+            a = $(this).siblings(".ok");
+            b = $(a).children(".text-edit");
+            b.prop("disabled", false);
+            b.focus();
         });
         $(".bg-hover").click(function () {
             //alert(typeof());
