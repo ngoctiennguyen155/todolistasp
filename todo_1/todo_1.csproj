@@ -196,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\BLL\Account.cs" />
+    <Compile Include="App_Code\BLL\Filter.cs" />
     <Compile Include="App_Code\BLL\Jobs.cs" />
     <Compile Include="App_Code\DAL\ConnectDB.cs" />
     <Compile Include="App_Code\DAL\Account_DAL.cs" />

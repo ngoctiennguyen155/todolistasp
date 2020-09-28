@@ -6,13 +6,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using todo_1.App_Code.BLL;
-using todo_1.App_Code.DAL;
 
 namespace todo_1
 {
     public partial class dangnhap : System.Web.UI.Page
     {
-        public ConnectDB dbcon = new ConnectDB();
+        public Filter dbcon = new Filter();
         protected void Page_Load(object sender, EventArgs e)
         {
             

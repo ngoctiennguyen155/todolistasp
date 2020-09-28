@@ -10,7 +10,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using todo_1.App_Code.BLL;
-using todo_1.App_Code.DAL;
+
 
 namespace todo_1
 {
@@ -34,7 +34,7 @@ namespace todo_1
         public DataTable comment = new DataTable();
 
         public string daySelected = DateTime.Now.ToString();
-        public ConnectDB dbcon = new ConnectDB();
+        public Filter dbcon = new Filter();
         
         
         public DateTime dayshowonindex = new DateTime();
@@ -67,7 +67,7 @@ namespace todo_1
                 
             }
             title = convetday(dbcon.Getcurrentday());
-            Response.Write("<script>alert('" + title + "');</script>");
+            //Response.Write("<script>alert('" + title + "');</script>");
             //title = GetDayStartOfWeek(daySelected);
             if (Request.QueryString["iddelete"]!=null)
             {
@@ -101,8 +101,10 @@ namespace todo_1
             if (Request.QueryString["contact"] != null)
             {
                 jobHandle.job_id = int.Parse(Request.QueryString["idjob"]);
-                jobHandle.AddContact(Request.QueryString["contact"].Trim());
+                if(jobHandle.AddContact(Request.QueryString["contact"].Trim()))
                 Response.Write("<script>alert('Thêm cộng tác thành công');window.location='index.aspx';</script>");
+                else
+                    Response.Write("<script>alert('[!] Không thể thêm cộng tác.!!');window.location='index.aspx';</script>");
             }
 
             if (Request.QueryString["job"] != null)

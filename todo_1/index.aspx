@@ -160,6 +160,34 @@
                                             <span style="padding: 3.5px; cursor:pointer; padding-top: 3px" class="edit btn-primary" ><i class="fa fa-edit"></i></span>
                                         </div>
                                             </form>
+
+                                        <!-- data hidden -->
+                                        <h4 id="1" style="display:none"><%= dt.Rows[j][2] %></h4>
+                                        <h4 id="2" style="display:none"><%= dt.Rows[j][3] %></h4>
+                                        <h4 id="3" style="display:none"><%= dt.Rows[j][4] %></h4>
+                                        <h4 id="4" style="display:none"><%= dt.Rows[j][5] %></h4>
+                                        
+                                        <%if (contacts[(int)dt.Rows[j][0], 0] != null)
+                                            {
+                                                int z = 0;
+                                                while (contacts[(int)dt.Rows[j][0], z] != null)
+                                                {%>
+                                                    <h5 style="display:none"><%=contacts[(int)dt.Rows[j][0],z] %></h5>
+                                                    <h5 style="display:none"><%=idcontacts[(int)dt.Rows[j][0],z++] %></h5>
+                                                   
+                                             <% }
+                                      }%>
+                                         <%if (comments[(int)dt.Rows[j][0], 0] != null)
+                                            {
+                                                int z = 0;
+                                                while (comments[(int)dt.Rows[j][0], z] != null)
+                                                {%>
+                                                     <h6 style="display:none"><%=comments[(int)dt.Rows[j][0],z] %></h6>
+                                                        <h6 style="display:none"><%=namenvcomments[(int)dt.Rows[j][0],z++] %></h6>
+                                           
+                                             <% }
+                                      }%>
+                                        <!-- data hidden -->
                                         <div class="bg-hover d-inline ml-auto" id="<%= dt.Rows[j][0] %>">
                                             <form action="index.aspx" method="get" >
                                                 <input  name="iddelete" value="<%= dt.Rows[j][0] %>" hidden/>
@@ -265,9 +293,39 @@
             $(".ok").click(function () {
                 $("#myModal").modal();
                 var idjob = $(this).siblings("input").val();
-                var jobtitle = $(this).siblings("input .jobtitle").val();
+                var jobtitle = $(this).children().val();
 
+               
+                   
+
+                console.log(idjob);
                 console.log(jobtitle);
+                //day start
+                console.log($(this).parent("form").siblings("#1").text());
+                //day end
+                console.log($(this).parent("form").siblings("#2").text());
+                // status 0 đang tiến hành, 1 đã hoàn thành, 2 quá hạn.
+                console.log($(this).parent("form").siblings("#3").text());
+                //public 0false 1true
+                console.log($(this).parent("form").siblings("#4").text());
+
+
+                //data contact --> ghichu: mảng bắt đầu từ 0 và số chẳng là tên số lẻ là id
+                var arrContacts = [];
+                $(this).parent("form").siblings("h5").each(function (e) {
+                    arrContacts.push($(this).text());
+                });
+                console.log(arrContacts);
+
+                // data comment --> ghi chú mảng bắt đầu từ 0 và số chẳng là comment số lẻ là tên người comment
+                var arrComments = [];
+                $(this).parent("form").siblings("h6").each(function (e) {
+                    arrComments.push($(this).text());
+                });
+                console.log(arrComments);
+
+
+                
             });
 
 

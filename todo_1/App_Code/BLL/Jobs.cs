@@ -69,14 +69,18 @@ namespace todo_1.App_Code.BLL
             DAL.Job_DAL job = new DAL.Job_DAL();
             job.DeleteContact(idnv,job_id);
         }
-        public void AddContact(string email)
+        public bool AddContact(string email)
         {
             DAL.Job_DAL job = new DAL.Job_DAL();
             if(job.CheckEmailExist(email)>=1)
             {
-                if (job.EmailExistWithJobId(email, job_id)<=0) 
-                job.AddContact(email, job_id);
+                if (job.EmailExistWithJobId(email, job_id)<=0) {
+                    job.AddContact(email, job_id);
+                    return true;
+                }
+                
             }
+            return false;
         }
         public int CreateIdJobNext()
         {
