@@ -14,7 +14,7 @@ namespace todo_1.App_Code.DAL
             ConnectDB.OpenConect();
             using (ConnectDB.con)
             {
-                string sQuery = "select* from CongViec cv, (select * from PHANCONG where nv_id ='"+id+"') nt where cv.job_id = nt.job_id and job_date>='"+dt+"' and job_date<='"+DateTime.Parse(dt).AddDays(7).ToString()+"'";
+                string sQuery = "select* from CongViec cv, (select * from PHANCONG where nv_id ='"+id+"') nt where cv.job_id = nt.job_id and job_datestart>='"+dt+"' and job_datestart<='"+DateTime.Parse(dt).AddDays(7).ToString()+"'";
                 SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
                 SqlDataAdapter ad = new SqlDataAdapter(cmd);
 
@@ -44,7 +44,7 @@ namespace todo_1.App_Code.DAL
             ConnectDB.OpenConect();
             using (ConnectDB.con)
             {
-                string sQuery = "select nv_name,job_title,job_date,job_status,job_public,job_files from NhanVien nv ,CongViec cv, PHANCONG pc where nv.nv_id = pc.nv_id and cv.job_id = pc.job_id and cv.job_public = 1";
+                string sQuery = "select * from CongViec where job_public=1";
                 SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
                 SqlDataAdapter ad = new SqlDataAdapter(cmd);
 
@@ -69,13 +69,28 @@ namespace todo_1.App_Code.DAL
                 return ds.Tables[0];
             }
         }
+        public DataTable GetComments(string idjob)
+        {
+            ConnectDB.OpenConect();
+            using (ConnectDB.con)
+            {
+                string sQuery = "select * from BINHLUAN bl,NhanVien nv where job_id ='"+idjob+"' and nv.nv_id = bl.nv_id";
+                SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+
+                DataSet ds = new DataSet();
+                ad.Fill(ds);
+
+                return ds.Tables[0];
+            }
+        }
         public void Insert(int jobid,string title,DateTime day)
         {
             ConnectDB.OpenConect();
             using (ConnectDB.con)
             {
                 // 
-                string sQuery = "insert into CongViec(job_id,job_title,job_date,job_status,job_public) values('"+jobid+"',N'"+title+"','"+day+"','"+0+"','"+0+"')";
+                string sQuery = "insert into CongViec(job_id,job_title,job_datestart,job_datefinish,job_status,job_public) values('" + jobid+"',N'"+title+"','"+day+ "','" + day + "','" + 0+"','"+0+"')";
                 SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
                 cmd.ExecuteNonQuery();
 
@@ -189,6 +204,22 @@ namespace todo_1.App_Code.DAL
                 string sQuery = "select COUNT(*) from NhanVien where nv_id ='" + id + "' ";
                 SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
                 return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        public DataTable GetContactsJobPublic(int id)
+        {
+            ConnectDB.OpenConect();
+            using (ConnectDB.con)
+            {
+                string sQuery = "select * from NhanVien where nv_id in (select nv.nv_id from NhanVien nv,PHANCONG pc where nv.nv_id =pc.nv_id and pc.job_id='"+id+"')";
+                SqlCommand cmd = new SqlCommand(sQuery, ConnectDB.con);
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+
+                DataSet ds = new DataSet();
+                ad.Fill(ds);
+
+                return ds.Tables[0];
             }
         }
     }

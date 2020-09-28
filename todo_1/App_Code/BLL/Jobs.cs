@@ -9,7 +9,8 @@ namespace todo_1.App_Code.BLL
     public class Jobs
     {
         public string job_title{ get; set; }
-        public DateTime job_date { get; set; }
+        public DateTime job_datestart { get; set; }
+        public DateTime job_datefinish { get; set; }
         public string job_status { get; set; }
         public string job_public { get; set; }
         public string job_files { get; set; }
@@ -28,12 +29,18 @@ namespace todo_1.App_Code.BLL
             for(int i =0;i< t.Rows.Count;i++)
             {
                 DateTime tam = Convert.ToDateTime(t.Rows[i][2]);
-                if(!tam.DayOfWeek.Equals(DateTime.Today.DayOfWeek))
+                if(tam < DateTime.Now)
                 {
                     t.Rows[i].Delete();
                 }
             }
+            t.AcceptChanges();
             return t;
+        }
+        public DataTable Comments()
+        {
+            DAL.Job_DAL job = new DAL.Job_DAL();
+            return job.GetComments(job_id.ToString());
         }
         public DataTable GetContact(string idnv)
         {
@@ -43,8 +50,9 @@ namespace todo_1.App_Code.BLL
         public void Insert(int id)
         {
             DAL.Job_DAL job = new DAL.Job_DAL();
-            job.Insert(job_id,job_title,job_date);
+            job.Insert(job_id, job_title, job_datestart);
             job.AddContactById(id, job_id);
+
         }
         public void Delete()
         {
@@ -74,6 +82,11 @@ namespace todo_1.App_Code.BLL
         {
             DAL.Job_DAL job = new DAL.Job_DAL();
             return job.CreateIDJob();
+        }
+        public DataTable GetAllContactsJobsPublic()
+        {
+            DAL.Job_DAL job = new DAL.Job_DAL();
+            return job.GetContactsJobPublic(job_id);
         }
     }
 }

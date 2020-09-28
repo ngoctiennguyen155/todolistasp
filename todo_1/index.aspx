@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
 
-    <title><%: Page.Title %> </title>
-    <link href="Css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
-    <link href="Css/style.css" rel="stylesheet" type="text/css">
-    <link href="Css/font-awesome.css" rel="stylesheet" type="text/css">
-
+    <link href="Css/bootstrap-4.3.1.css" rel="stylesheet" />
+    <link href="Css/font-awesome.css" rel="stylesheet" />
+    <link href="Css/StyleSheet1.css" rel="stylesheet" />
 </head>
 <body >
    
@@ -54,7 +52,7 @@
             </div>
 
             <ul class="list-unstyled components pre-scrollable">
-                <li>
+                <!--<li>
                     <div class="card-body bg-white public-act mb-1">
                         <h4 class="card-title">Làm báo cáo</h4>
                         <p class="card-text p-0">Some example text. Some example text.</p>
@@ -62,40 +60,33 @@
                         <a href="#" class="card-link">Another link</a>
                       </div>
                 </li>
+                -->
+               
+                <%if (jobPublicData.Rows.Count > 0) {
+                        for(int i = 0;i<jobPublicData.Rows.Count;i++)
+                        {
+                            %>
+                            <li>
+                                <div class="card-body bg-white public-act mb-1">
+                                    <h4 class="card-title"><%= jobPublicData.Rows[i][1] %></h4>
+                                    <span>Start<p class="card-text p-0"> <%= jobPublicData.Rows[i][2].ToString().Split(' ')[0] %></p></span>
+                                     <span>End<p class="card-text p-0"><%= jobPublicData.Rows[i][3].ToString().Split(' ')[0] %> </p></span>
+                                    <%if (contactjobpublic[(int)jobPublicData.Rows[i][0], 0] != null)
+                                            {
+                                                int z = 0;
+                                                while (contactjobpublic[(int)jobPublicData.Rows[i][0], z] != null)
+                                                {%>
+                                                    <p> <%=contactjobpublic[(int)jobPublicData.Rows[i][0], z++] %></p>
+                                                    
+                                             <% }
+                                      }%>
+                                  </div>
+                            </li>
+                    <%    }
 
-                <!--them csdl xong thi bo tu khuc nay-->
-                <li>
-                    <div class="card-body bg-white public-act mb-1">
-                        <h4 class="card-title">Làm báo cáo</h4>
-                        <p class="card-text p-0">Some example text. Some example text.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                </li>
-                <li>
-                    <div class="card-body bg-white public-act mb-1">
-                        <h4 class="card-title">Làm báo cáo</h4>
-                        <p class="card-text p-0">Some example text. Some example text.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                </li>
-                <li>
-                    <div class="card-body bg-white public-act mb-1">
-                        <h4 class="card-title">Làm báo cáo</h4>
-                        <p class="card-text p-0">Some example text. Some example text.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                </li>
-                <li>
-                    <div class="card-body bg-white public-act mb-1">
-                        <h4 class="card-title">Làm báo cáo</h4>
-                        <p class="card-text p-0">Some example text. Some example text.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                </li>
+                        } %>
+                
+                
                 <!--den khu nay-->
 
             </ul>
@@ -124,13 +115,13 @@
 		</div>
         <!--end navbar header top-->
         
-        <h4>To do list</h4>
+        
         <!--content-->
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form class="form-inline" style="width: 500px" action="index.aspx" method="get">
-                        <span><input class="form-control mr-1" type="date"  name="daysearch" value="29-02-2020" id="ngay"  /></span>
+                    <form class="form-inline mt-5" style="width: 500px" action="index.aspx" method="get">
+                        <span><input class="form-control mr-1" type="date"  name="daysearch" value="<%=dbcon.Getcurrentday() %>"  /></span>
                         <button class="btn btn-info">Tìm kiếm</button>
                     </form>
                 </div>
@@ -161,7 +152,7 @@
                                 <div class="activity">
                                 	<div class="form-inline">
                                         <form action="index.aspx" method="get" class="form-sua form-inline w-auto">
-                                        <input type="text" name="idupdate" value="<%= dt.Rows[j][0] %>" hidden />
+                                        <input type="text" class="jobtitle" name="idupdate" value="<%= dt.Rows[j][0] %>" hidden />
                                         <span class="ok"><input style="cursor: pointer" name="textupdate" class="text-edit form-control" type="text" disabled value="<%= dt.Rows[j][1] %>"></span>
                                         <button hidden><i class="fa fa-plus"></i></button>
                                             
@@ -210,6 +201,16 @@
                                       	<i class="fa fa-plus"></i> 
                                       </li>
                                     </ul>
+                                         <%if (comments[(int)dt.Rows[j][0], 0] != null)
+                                            {
+                                                int z = 0;
+                                                while (comments[(int)dt.Rows[j][0], z] != null)
+                                                {%>
+                                                  <input type="text" value="<%=comments[(int)dt.Rows[j][0],z] %>" />
+                                                    <h4><%=idnvcomments[(int)dt.Rows[j][0],z] %></h4>
+                                                    <h4><%=namenvcomments[(int)dt.Rows[j][0],z++] %></h4>
+                                             <% }
+                                      }%>
                                     </div>
                             </div>
                                   <% }
@@ -247,21 +248,34 @@
             $(".input-them").slideUp(0);
             $(".text-add").slideUp(0);
 
-            var date = new Date();
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
+            //var date = new Date();
+            //var day = date.getDate();
+            //var month = date.getMonth() + 1;
+            //var year = date.getFullYear();
 
-            if (month < 10) month = "0" + month;
-            if (day < 10) day = "0" + day;
+            //if (month < 10) month = "0" + month;
+            //if (day < 10) day = "0" + day;
 
-            var today = year + "-" + month + "-" + day;
-            $("#ngay").attr("value", today);
+            //var today = year + "-" + month + "-" + day;
+            //$("#ngay").attr("value", today);
+
+
+
 
             $(".ok").click(function () {
                 $("#myModal").modal();
+                var idjob = $(this).siblings("input").val();
+                var jobtitle = $(this).siblings("input .jobtitle").val();
+
+                console.log(jobtitle);
             });
-            
+
+
+
+
+
+
+
         });
 
         $("#sidebar").mCustomScrollbar({
@@ -292,21 +306,7 @@
       
             a = $(this).parents(".bg-white");
             a.css("display", "none");
-            $.ajax({
-                url: 'LoginSuccess/AddRoleForSelectStaff',
-                type: "POST",
-                data: "{'GivenStaffID':'" + $(this).attr("id") + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert(response);
-                },
-                failure: function (response) {
-                    alert(response.d);
-                }
-            }).done(function (response) {
-                alert("done " + response);
-            });
+            
  
         });
 
@@ -327,9 +327,7 @@
             b = $(this).siblings(".text-add");
             b.slideToggle();
         });
-        $(function () {
-            $("#datepicker").datepicker();
-        });
+        
     </script>
     
 </body>

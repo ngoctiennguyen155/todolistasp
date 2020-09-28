@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace todo_1 {
-    
-    
-    public partial class index {
-        
+namespace todo_1
+{
+
+
+    public partial class index
+    {
+
         /// <summary>
         /// label1 control.
         /// </summary>
